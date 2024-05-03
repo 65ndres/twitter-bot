@@ -1,4 +1,12 @@
 services:
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes: 
+      - ./cache:/data
   db:
     image: postgres
     volumes:
@@ -19,6 +27,11 @@ services:
       - ./api:/api
     depends_on:
       - db
+      - cache
+    environment:
+      REDIS_HOST: cache
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
   client:
     build: client
     image: react-client
