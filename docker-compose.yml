@@ -1,10 +1,10 @@
 services:
-  cache:
+  redis:
     image: redis:6.2-alpine
     restart: always
     ports:
       - '6379:6379'
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    command: redis-server
     volumes: 
       - ./cache:/data
   db:
@@ -27,9 +27,10 @@ services:
       - ./api:/api
     depends_on:
       - db
-      - cache
+      - redis
     environment:
-      REDIS_HOST: cache
+      REDIS_URL: redis://redis:6379/0
+      REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
   client:
