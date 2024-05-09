@@ -1,4 +1,5 @@
 class Tweet < ApplicationRecord
+  enum frequency: { once: 0, daily: 1, weekly: 2 }
   belongs_to :user
   belongs_to :twitter_account
 
