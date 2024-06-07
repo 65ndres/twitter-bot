@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2024_05_02_183717) do
     t.bigint "twitter_account_id", null: false
     t.text "body"
     t.datetime "publish_at"
+    t.boolean "published", default: false
     t.integer "frequency", default: 0
     t.string "tweet_id"
     t.datetime "created_at", precision: 6, null: false

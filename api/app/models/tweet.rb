@@ -12,7 +12,8 @@ class Tweet < ApplicationRecord
   end
 
   def publish_to_twitter!
-    tweet = twitter_account.client.update(body)
-    update(tweet_id: tweet.id)
+    # tweet = twitter_account.client.update(body)
+    # update(tweet_id: tweet.id, published: true)
+    Rails.logger.warn "HELO :::: It POSTED to TWITTER"
   end
 end
